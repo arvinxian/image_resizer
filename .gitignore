@@ -4,3 +4,5 @@ result/*
 image/*
 build/*
 dist/*
+*.spec
+test.py
