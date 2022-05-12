@@ -2,3 +2,5 @@
 venv/*
 result/*
 image/*
+build/*
+dist/*
