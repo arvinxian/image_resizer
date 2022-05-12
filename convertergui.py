@@ -74,9 +74,21 @@ def helloCallBack():
        else:
               print("no directory selected")
 
+l3 = Label(root, text = "result percentage")
+v1 = DoubleVar()
+s1 = Scale( root, variable = v1,
+		from_ = 1, to = 100,
+		orient = HORIZONTAL)
+
 button = tk.Button(root, text ="choose folder", command = helloCallBack)
 
-button.pack()
+
+
+s1.pack(anchor = CENTER)
+# l3.pack()
+l3.pack()
+# l.pack(pady=(10, 0)) 
+button.pack(pady=(100, 0))
 
 # keep the window displaying
 root.mainloop()
