@@ -1,11 +1,14 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import *
+import os
+from PIL import Image
+import imghdr
 
 root = tk.Tk()
 root.title('image conveter')
-window_width = 1280
-window_height = 720
+window_width = 800
+window_height = 400
 
 # get the screen dimension
 screen_width = root.winfo_screenwidth()
@@ -21,18 +24,55 @@ root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 # root.attributes('-alpha', 0.9)
 
 
-
 # root.withdraw()
-folder_selected = filedialog.askdirectory()
-print(folder_selected)
+# folder_selected = filedialog.askdirectory()
+# print(folder_selected)
 
-# place a label on the root window
-message = tk.Label(root, text=folder_selected)
-message.pack()
+# # place a label on the root window
+# message = tk.Label(root, text=folder_selected)
+# message.pack()
 
 
 def helloCallBack():
+       folder_selected = filedialog.askdirectory()
        print("I'm clicked")
+       
+       message = tk.Label(root, text=folder_selected)
+       message.pack()
+       # make dir
+       current_directory = os.getcwd()
+       # final_directory = os.path.join(current_directory, r'result')
+       # if not os.path.exists(final_directory):
+       #        os.makedirs(final_directory)
+       
+       basewidth = 500
+
+       # iterate over files in
+       # that directory
+       print("folder_selected:" + folder_selected)
+       if folder_selected != '':
+              # create result directory
+              final_directory = os.path.join(folder_selected, r'result')
+              if not os.path.exists(final_directory):
+                     os.makedirs(final_directory)
+              for filename in os.listdir(folder_selected):
+                     
+                     f = os.path.join(folder_selected, filename)
+                     # checking if it is a file
+                     if os.path.isfile(f):
+                            # check if file is an image
+                            filetype = imghdr.what(f)
+                            if (filetype is None or filetype == ''):
+                                   print(f + "is not an image file, skip it")
+                                   continue
+                            img = Image.open(f)
+                            wpercent = (basewidth/float(img.size[0]))
+                            hsize = int((float(img.size[1])*float(wpercent)))
+                            img = img.resize((basewidth, hsize), Image.LANCZOS)
+                            img.save(final_directory + '/' + filename)
+                            print(f)
+       else:
+              print("no directory selected")
 
 button = tk.Button(root, text ="choose folder", command = helloCallBack)
 
@@ -40,3 +80,6 @@ button.pack()
 
 # keep the window displaying
 root.mainloop()
+
+
+

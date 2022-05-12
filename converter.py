@@ -8,6 +8,9 @@ savePath = 'result'
 
 basewidth = 500
 
+
+
+
 # iterate over files in
 # that directory
 for filename in os.listdir(directory):
