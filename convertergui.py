@@ -51,8 +51,8 @@ def traverse_dir_recur(dir):
               if os.path.isdir(f):
                      print("current is directory:" + f)
                      traverse_dir_recur(dir + "/" + dirname +"/")
-              else:
-                     print(f)
+              # else:
+                     # print(f)
               # checking if it is a file
               if os.path.isfile(f):
                      # check if file is an image
@@ -61,7 +61,7 @@ def traverse_dir_recur(dir):
                             print(f + "is not an image file, skip it")
                             continue
                      img = Image.open(f)
-                     if v1.get() < 100.0:
+                     if v1.get() > 1.0:
                             # use setted percentage if scale bar was setted under 100
                             basewidth = int(float(img.size[0]) * v1.get()/100.0)
                      
@@ -85,7 +85,7 @@ button = tk.Button(root, text ="choose folder", command = helloCallBack)
 
 s1.pack(anchor = CENTER)
 # defalut value
-s1.set(100) 
+s1.set(1) 
 # l3.pack()
 l3.pack()
 # l.pack(pady=(10, 0)) 
