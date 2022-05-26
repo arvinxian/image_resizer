@@ -19,13 +19,13 @@ center_x = int(screen_width/2 - window_width / 2)
 center_y = int(screen_height/2 - window_height / 2)
 
 entryPath = ''
-basewidth = 1000
+basewidth = 500
 
 # set the position of the window to the center of the screen
 root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
 def helloCallBack():
-       global entryPath, entryfolder
+       global entryPath, entryfolder, basewidth
        folder_selected = filedialog.askdirectory()
        print("I'm clicked")
        
@@ -33,6 +33,10 @@ def helloCallBack():
        message.pack()
        print("folder_selected:" + folder_selected)
        entryPath = folder_selected[:folder_selected.rindex('/')]
+       
+       currentWidth = int(inputWidth.get(1.0, "end-1c"))
+       print(currentWidth)
+       basewidth = currentWidth
        if folder_selected != '':
               traverse_dir_recur(folder_selected)
        else:
@@ -51,8 +55,6 @@ def traverse_dir_recur(dir):
               if os.path.isdir(f):
                      print("current is directory:" + f)
                      traverse_dir_recur(dir + "/" + dirname +"/")
-              # else:
-                     # print(f)
               # checking if it is a file
               if os.path.isfile(f):
                      # check if file is an image
@@ -79,17 +81,29 @@ s1 = Scale( root, variable = v1,
 		from_ = 1, to = 100,
 		orient = HORIZONTAL)
 
+# input entrance
+inputLabel = Label(root, text = "result width(px)")
+inputWidth=Text(root, height=1, width=10)
+
+
 button = tk.Button(root, text ="choose folder", command = helloCallBack)
 
 
+# mount widgets
 
 s1.pack(anchor = CENTER)
-# defalut value
+# set defalut value
 s1.set(1) 
-# l3.pack()
 l3.pack()
+
+# input widget
+
+inputWidth.pack()
+inputWidth.insert("end-1c", 500)
+inputLabel.pack()
 # l.pack(pady=(10, 0)) 
 button.pack(pady=(100, 0))
+
 
 # keep the window displaying
 root.mainloop()
