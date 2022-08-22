@@ -15,3 +15,4 @@ Cause my girlfriend has the need of scale images in batch, after searching onlin
 - [ ] support drag multiple image files or folder to app
 - [ ] optimize the opening speed for builded app
 - [ ] the ability to custom output folder
+- [ ] save current configuration as default
